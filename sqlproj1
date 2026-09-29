@@ -1,0 +1,147 @@
+- now i am  makeing a project for data analyst saes data 
+
+
+create database  project_1;
+
+#below my table name .
+-- transactions_id	sale_date	sale_time	customer_id	gender	age	category	quantiy	price_per_unit	cogs	total_sale
+use project_1;
+
+
+ create table retail_sales(
+ transactions_id int primary key ,
+ sale_date date,
+ sale_time time,
+ customer_id int,
+ gender varchar(15),
+ age int(3),
+ category varchar(15),
+ quantiy int,
+ price_per_unit	 float,
+ cogs float,
+ total_sale float
+ );
+
+
+DESC retail_sales;  # here i checked the table is created or not 
+
+SHOW TABLES;
+select * from retail_sales;
+
+#now i am going to import the data in my table  
+
+desc retail_sales;
+select * from retail_sales;
+
+-- now i am count the data is total data is import or not ?
+select count(*) from retail_sales;
+
+#check the null value in datasets 
+
+select  * from retail_sales
+ where transactions_id is null;   # there is no any null value in transaction 
+ 
+ 
+ select  * from retail_sales
+where sale_date is null; 
+ 
+ select  * from retail_sales
+where sale_time is null; 
+
+ select  * from retail_sales
+ where customer_id is null; 
+
+
+SELECT * FROM retail_sales
+WHERE 
+    transactions_id IS NULL
+    OR
+    sale_date IS NULL
+    OR 
+    sale_time IS NULL
+    OR
+    gender IS NULL
+    OR
+    category IS NULL
+    OR
+    quantiy IS NULL
+    OR
+    cogs IS NULL
+    OR
+    total_sale IS NULL;
+    
+    
+-- SOMEDATA  have null value so drop  delte the data 
+
+
+delete  FROM retail_sales
+WHERE 
+    transactions_id IS NULL
+    OR
+    sale_date IS NULL
+    OR 
+    sale_time IS NULL
+    OR
+    gender IS NULL
+    OR
+    category IS NULL
+    OR
+    quantiy IS NULL
+    OR
+    cogs IS NULL
+    OR
+    total_sale IS NULL;
+    
+    select count(*) from retail_sales; 
+    #here the null value is drop 
+    
+    
+ --    data exploration -- 
+ -- how many sales we have 
+ select count(*) as tatal_sales 
+ from 
+ retail_sales;
+ #1987 
+ 
+ #how many customer we have  
+ select count(distinct(customer_id)) as total_customer  
+ from 
+ retail_sales;
+  # ans -- 155 customer we have 
+ 
+ 
+--- -Q3  how many category name we have ?
+select distinct(category) from retail_sales;    
+
+# its a real time question that business amnalyst performe  
+-- Write a SQL query to retrieve all columns for sales made on '2022-11-05:
+
+select  *  from retail_sales   # if i put only star so i get the total col and row 
+where sale_date ='2022-11-05';
+
+-- if i want only sales data  so just 
+select sum(total_sale) from retail_sales
+where sale_date = '2022-11-05';
+
+-- Write a SQL query to retrieve all transactions where the category is 'Clothing' and the quantity sold is more than 4 in the month of Nov-2022:
+
+SELECT *
+FROM retail_sales
+WHERE category = 'Clothing'
+  AND quantiy >= 4
+  AND DATE_FORMAT(sale_date, '%Y-%m') = '2022-11';    
+  # for date format we  use this one '%Y-%m' --ans 17 row  
+
+
+-- Write a SQL query to calculate the total sales (total_sale) for each category.:
+    
+    SELECT 
+    category,
+    SUM(total_sale) as net_sale,
+    COUNT(*) as total_orders
+FROM retail_sales
+GROUP BY 1
+
+
+
+
